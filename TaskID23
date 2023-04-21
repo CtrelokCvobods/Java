@@ -1,0 +1,89 @@
+import static java.lang.Math.abs;
+import static java.lang.Math.pow;
+
+public class TaskID23 {
+    // Количество строк для генерации матричного массива.
+    public static int I = 4;
+    // Количество столбцов для генерации матричного массива.
+    public static int J = 5;
+    // Минимальное значение.
+    public static int MIN = -175;
+    // Максимальное значение.
+    public static int MAX = 500;
+
+    public static void main(String[] args) {
+    int[][] list = new int[TaskID23.I][TaskID23.J];
+    // Генерация массива.
+        for (int i = 0; i < TaskID23.I; i++) {
+            for (int j = 0; j < TaskID23.J; j++) {
+                list[i][j] = (TaskID23.MIN + (int) Math.round(Math.random() * (TaskID23.MAX - TaskID23.MIN)));
+            }
+        }
+        // Печать в консоль.
+        System.out.println("Рандомный матричный массив:");
+        // Перенаправление в Печать в консоль.
+        TaskID23.printListM(list);
+
+        // Перенаправление 1.
+        int[] vectorB = TaskID23.searchListMINColumn(list);
+        // Печать в консоль.
+        System.out.println("Минимальные число каждого столбца:");
+        // Перенаправление в Печать в консоль.
+        TaskID23.printList(vectorB);
+    }
+    // 1.
+    private static int[] searchListMINColumn(int[][] list) {
+        // Переменная для счёта подходящих элементов.
+        int z = 0;
+        // Подсчёт для получения количества элементов массива минимальных значений столбцов.
+        for (int j = 0; j < TaskID23.J; j++) {
+            // Добавить 1 место для массива.
+            z++;
+        }
+        // Объявление нового массива для сохранения минимальных значений столбцов.
+        int[] vectorB = new int[z];
+            // Сортировка ( j - n-место элемента (столбец) массива).
+            for (int j = 0; j < TaskID23.J; j++) {
+                // Сохранение первого элемента столбца.
+                vectorB[j] = list[0][j];
+                for (int i = 0; i < TaskID23.I; i++) {
+                // Если i элемент столбца больше предыдущего ...
+                if (vectorB[j] > list[i][j]) vectorB[j] = list[i][j]; // Сохранить это число.
+            }
+        }
+        // Вывести массив.
+        return vectorB;
+    }
+    // Печать в консоль.
+    private static void printListM(int[][] list) {
+        // Печать каждого элемента матричного массива.
+        for (int i = 0; i < TaskID23.I; i++) {
+            for (int j = 0; j < TaskID23.J; j++) {
+                // Форматирование матрицы.
+                System.out.print("| ");
+                if (list[i][j]>=0) System.out.print(" ");
+                System.out.print(list[i][j]+" ");
+                for (int l = 1; pow(10, l) <= abs(TaskID23.MAX); l++) {
+                    if (abs(list[i][j]) < pow(10, l)) System.out.print(" ");
+                }
+            }
+            System.out.print("|\n");
+        }
+    }
+    // Печать в консоль.
+    private static void printList(int[] vectorB) {
+        // Печать каждого элемента массива по очереди. Форматирование матрицы.
+        System.out.print("|");
+        for (int i = 0; i < vectorB.length; i++) {
+            System.out.print(" ");
+            if (vectorB[i]>=0) System.out.print(" ");
+            System.out.print(vectorB[i]+" ");
+            for (int l = 1; pow(10, l) <= abs(TaskID23.MAX); l++) {
+                if (abs(vectorB[i]) < pow(10, l)) System.out.print(" ");
+            }
+            System.out.print("|");
+         }
+        // Переместиться на следующую строчку.
+        System.out.println();
+    }
+}
